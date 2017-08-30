@@ -32,6 +32,12 @@ db.on('error', function(err){
 
 db.once('open', function(){
 	console.log('db connection successful');
+
+  // adding drop database here to ensure unique index on email
+  // is properly created
+  db.dropDatabase(function(err, result) {
+    console.log('db dropped');
+  });
   
   // once the connection has been established, seed the database
   seeder.seed(data, {dropDatabase: true}).then(function(db) {
